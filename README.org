@@ -1,0 +1,15 @@
+* VSCalm
+VSCalm is an extension for Visual Studio 11 Beta to make the ::: TOOL WINDOW TITLES :::::: look a bit more calm.
+** Download
+[[https://github.com/jeremyiverson/vs-calm/raw/master/bin/VSCalm.vsix][Download the VSCalm Installation Package]]
+** Before
+[[http://github.com/jeremyiverson/vs-calm/raw/master/img/vs11-before.png]]
+** After
+[[http://github.com/jeremyiverson/vs-calm/raw/master/img/vs11-vscalm.png]]
+** Usage
+1. To install, execute the VSCalm.vsix file.
+2. In Visual Studio 11 Beta, choose the Calm item from the Tools menu.
+
+[[http://github.com/jeremyiverson/vs-calm/raw/master/img/vscalm-menu.png]]
+** License
+VSCalm may be used and distributed under the Microsoft Public License (MS-PL).
