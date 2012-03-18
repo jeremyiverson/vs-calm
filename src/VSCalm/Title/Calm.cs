@@ -9,9 +9,9 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using VSCalm.Utility;
 
-
-namespace Algenta.VSCalm
+namespace VSCalm
 {
 	public class Calm
 	{
@@ -21,10 +21,10 @@ namespace Algenta.VSCalm
 			if (mainWindow != null)
 			{
 				// Find hidden (docked) tool windows.
-				var hiddenTabs = Utility.FindVisualChildren(mainWindow, "AutoHideTabItem");
+				var hiddenTabs = UIHelper.FindVisualChildren(mainWindow, "AutoHideTabItem");
 				foreach (var tab in hiddenTabs)
 				{
-					var textBlock = Utility.FindVisualChildren<TextBlock>(tab).FirstOrDefault();
+					var textBlock = UIHelper.FindVisualChildren<TextBlock>(tab).FirstOrDefault();
 					if (textBlock != null)
 					{
 						RemoveOutrageousConverter(textBlock);
@@ -32,17 +32,17 @@ namespace Algenta.VSCalm
 				}
 
 				// Find expanded tool windows.
-				var expandedTabs = Utility.FindVisualChildren(mainWindow, "DragUndockHeader");
+				var expandedTabs = UIHelper.FindVisualChildren(mainWindow, "DragUndockHeader");
 				foreach (var tab in expandedTabs)
 				{
-					var textBlock = Utility.FindVisualChildren<TextBlock>(tab).FirstOrDefault();
+					var textBlock = UIHelper.FindVisualChildren<TextBlock>(tab).FirstOrDefault();
 					if (textBlock != null)
 					{
 						RemoveOutrageousConverter(textBlock);
 					}
 
 					// :::: Hide the colon-like grippers :::::::
-					var rectangles = Utility.FindVisualChildren<Rectangle>(tab);
+					var rectangles = UIHelper.FindVisualChildren<Rectangle>(tab);
 					foreach (var r in rectangles)
 					{
 						r.Visibility = Visibility.Collapsed;
@@ -80,52 +80,4 @@ namespace Algenta.VSCalm
 		}		
 	}
 
-	public static class Utility
-	{
-		public static IEnumerable<DependencyObject> FindVisualChildren(DependencyObject depObj, string typeName)
-		{
-			if (depObj != null)
-			{
-				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-				{
-					DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-					if (child != null && child.GetType().Name.Contains(typeName))
-					{
-						yield return child;
-					}
-
-					foreach (var childOfChild in FindVisualChildren(child, typeName))
-					{
-						yield return childOfChild;
-					}
-				}
-			}
-		}
-
-		public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
-		{
-			if (depObj != null)
-			{
-				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-				{
-					DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-					if (child != null && child is T)
-					{
-						yield return (T)child;
-					}
-
-					foreach (T childOfChild in FindVisualChildren<T>(child))
-					{
-						yield return childOfChild;
-					}
-				}
-			}
-		}
-
-		public static string ToTitleCase(this string str)
-		{
-			// ToTitleCase leaves ALLCAPS text as all caps. So, convert it to lower case first.
-			return new CultureInfo("en-US", false).TextInfo.ToTitleCase(str.ToLower());
-		}
-	}
 }

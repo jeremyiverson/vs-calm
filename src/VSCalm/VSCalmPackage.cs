@@ -12,8 +12,9 @@ using EnvDTE80;
 using Extensibility;
 using EnvDTE;
 using System.Windows.Threading;
+using VSCalm.Utility;
 
-namespace Algenta.VSCalm
+namespace VSCalm
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -48,9 +49,6 @@ namespace Algenta.VSCalm
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
         }
 
-
-        /////////////////////////////////////////////////////////////////////////////
-        // Overridden Package Implementation
         #region Package Members
 
         /// <summary>
@@ -82,7 +80,9 @@ namespace Algenta.VSCalm
 			calm.CalmDown();
         }
 
+        #endregion
 
+		#region Window event handling
 
 		private void WatchWindowEvents()
 		{
@@ -102,6 +102,8 @@ namespace Algenta.VSCalm
 		DispatcherTimer timer;
 		void windowEvents_WindowHiding(EnvDTE.Window Window)
 		{
+			// HACK When this event is triggered, the closed window can't be found yet, so it's title can't be converted.
+			// Set a short timer to do it when we can.
 			timer.Start();
 		}
 
@@ -118,12 +120,15 @@ namespace Algenta.VSCalm
 			Calm calm = new Calm();
 			calm.CalmDown();
 		}
-        #endregion
 
-        private void MenuItemCallback(object sender, EventArgs e)
+		#endregion
+
+		private void MenuItemCallback(object sender, EventArgs e)
         {
 			Calm calm = new Calm();
 			calm.CalmDown();
+
+			ResourceInspector.InspectResources();
         }
 
     }

@@ -2,7 +2,7 @@
 // MUST match PkgCmdID.h
 using System;
 
-namespace Algenta.VSCalm
+namespace VSCalm
 {
     static class PkgCmdIDList
     {

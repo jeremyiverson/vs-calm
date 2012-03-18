@@ -2,7 +2,7 @@
 // MUST match guids.h
 using System;
 
-namespace Algenta.VSCalm
+namespace VSCalm
 {
     static class GuidList
     {

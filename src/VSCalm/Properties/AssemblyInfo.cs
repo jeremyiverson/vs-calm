@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("VSCalm")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Algenta")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("VSCalm")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
