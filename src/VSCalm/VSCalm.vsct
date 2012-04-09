@@ -41,9 +41,9 @@
          must be a menu. -->
     <Groups>
 
-      <Group guid="guidVSCalmCmdSet" id="MyMenuGroup" priority="0x0600">
+      <!--<Group guid="guidVSCalmCmdSet" id="MyMenuGroup" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
-      </Group>
+      </Group>-->
       
 
 
@@ -61,13 +61,13 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
 
-      <Button guid="guidVSCalmCmdSet" id="cmdidCalm" priority="0x0100" type="Button">
+      <!--<Button guid="guidVSCalmCmdSet" id="cmdidCalm" priority="0x0100" type="Button">
         <Parent guid="guidVSCalmCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <ButtonText>Calm</ButtonText>
         </Strings>
-      </Button>
+      </Button>-->
 
 
 

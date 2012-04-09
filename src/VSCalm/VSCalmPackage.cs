@@ -13,6 +13,7 @@ using Extensibility;
 using EnvDTE;
 using System.Windows.Threading;
 using VSCalm.Utility;
+using VSCalm.Modifiers;
 
 namespace VSCalm
 {
@@ -35,6 +36,8 @@ namespace VSCalm
     // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(GuidList.guidVSCalmPkgString)]
+	[ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids80.NoSolution)]
+	[ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids80.SolutionExists)]
     public sealed class VSCalmPackage : Package
     {
         /// <summary>
@@ -47,6 +50,11 @@ namespace VSCalm
         public VSCalmPackage()
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
+
+			timer = new DispatcherTimer();
+			timer.Interval = TimeSpan.FromMilliseconds(100);
+			timer.Tick += timer_Tick;
+			timer.Start();
         }
 
         #region Package Members
@@ -60,21 +68,7 @@ namespace VSCalm
             Trace.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
             base.Initialize();
 
-            // Add our command handlers for menu (commands must exist in the .vsct file)
-            OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if ( null != mcs )
-            {
-                // Create the command for the menu item.
-                CommandID menuCommandID = new CommandID(GuidList.guidVSCalmCmdSet, (int)PkgCmdIDList.cmdidCalm);
-                MenuCommand menuItem = new MenuCommand(MenuItemCallback, menuCommandID );
-                mcs.AddCommand( menuItem );
-            }
-
 			WatchWindowEvents();
-
-			timer = new DispatcherTimer();
-			timer.Interval = TimeSpan.FromMilliseconds(100);
-			timer.Tick += timer_Tick;
 
 			Calm calm = new Calm();
 			calm.CalmDown();
@@ -122,14 +116,6 @@ namespace VSCalm
 		}
 
 		#endregion
-
-		private void MenuItemCallback(object sender, EventArgs e)
-        {
-			Calm calm = new Calm();
-			calm.CalmDown();
-
-			ResourceInspector.InspectResources();
-        }
 
     }
 

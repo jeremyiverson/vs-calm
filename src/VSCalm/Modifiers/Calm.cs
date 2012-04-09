@@ -17,11 +17,10 @@ namespace VSCalm
 	{
 		public void CalmDown()
 		{
-			var mainWindow = Application.Current.MainWindow;
-			if (mainWindow != null)
+			foreach (DependencyObject window in Application.Current.Windows.OfType<DependencyObject>())
 			{
 				// Find hidden (docked) tool windows.
-				var hiddenTabs = UIHelper.FindVisualChildren(mainWindow, "AutoHideTabItem");
+				var hiddenTabs = UIHelper.FindVisualChildren(window, "AutoHideTabItem");
 				foreach (var tab in hiddenTabs)
 				{
 					var textBlock = UIHelper.FindVisualChildren<TextBlock>(tab).FirstOrDefault();
@@ -32,7 +31,7 @@ namespace VSCalm
 				}
 
 				// Find expanded tool windows.
-				var expandedTabs = UIHelper.FindVisualChildren(mainWindow, "DragUndockHeader");
+				var expandedTabs = UIHelper.FindVisualChildren(window, "DragUndockHeader");
 				foreach (var tab in expandedTabs)
 				{
 					var textBlock = UIHelper.FindVisualChildren<TextBlock>(tab).FirstOrDefault();
