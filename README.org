@@ -1,10 +1,14 @@
 * VSCalm
 VSCalm is an extension for Visual Studio 11 Beta to make the ::: TOOL WINDOW TITLES :::::: look a bit more calm.
+
+** Obsolete
+With the official release of Visual Studio 2012, VSCalm is no longer needed. To change the capitalized menu headers, you can simply [[http://www.richard-banks.org/2012/06/how-to-prevent-visual-studio-2012-all.html][add a registry entry]].
+
+I will leave this up anyway, as the source code may be a useful reference for creating VS plugins that modify the VS user interface.
+
 ** Features
 - Change the capital letters to normal title case
 - Remove the colon-like gripper bars
-** Download
-[[https://github.com/downloads/jeremyiverson/vs-calm/VSCalm-1.1.vsix][Download the VSCalm Installation Package]]
 ** Before
 [[http://github.com/jeremyiverson/vs-calm/raw/master/img/vs11-before.png]]
 ** After
